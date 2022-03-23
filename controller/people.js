@@ -18,8 +18,7 @@ const createUser = async (req, res) => {
     res.status(200).json({ status: true, data: user })
 }
 
-const findUserById = async (req, res, next, value) => {
-    console.log(req?.params?.id);
+const findUserById = async (req, res) => {
     if (req?.params?.id) { // call by api
         const user = await User.findById(req.params.id)
         if (!!user) res.status(200).json({ status: true, data: user })
