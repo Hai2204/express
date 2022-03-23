@@ -19,8 +19,8 @@ const createUser = async (req, res) => {
 }
 
 const findUserById = async (req, res, next, value) => {
-    console.log(123);
-    if (!!req?.params?.id) { // call by api
+    console.log(req?.params?.id);
+    if (req?.params?.id) { // call by api
         const user = await User.findById(req.params.id)
         if (!!user) res.status(200).json({ status: true, data: user })
         res.status(404).json({ status: false, message: 'User not found' })
