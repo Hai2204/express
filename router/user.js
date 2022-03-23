@@ -5,7 +5,7 @@ import { createUser, getUser, updateUser, deleteUser, findUserById } from '../co
 const router = express.Router()
 
 router.get('/', getUser)
-router.get('/:id/', findUserById)
+router.get('/:id', findUserById)
 router.post('/', createUser)
 router.put('/:id', updateUser)
 router.delete('/:id', deleteUser)
