@@ -4,6 +4,7 @@ import 'dotenv/config'
 import { logger } from './logger.js';
 import { routeLogin } from './router/login.js';
 import { routeUser } from './router/user.js';
+import { routeBook } from './router/book.js';
 
 const app = express()
 
@@ -29,6 +30,8 @@ mongoo.connection.on("connected", () => {
     
     // ap user
     app.use("/user", routeUser)
+    // ap books
+    app.use("/book", routeBook)
     
     // ap login
     app.use("/login", routeLogin)

@@ -2,8 +2,12 @@ import User from "../modal/user.js"
 
 export default class UserService {
     getAll = async (req, res) => {
-        const users = await User.find()
-        res.status(200).json({ status: true, data: users })
+        try {
+            const users = await User.find()
+            res.status(200).json({ status: true, data: users })
+        } catch (error) {
+            
+        }
     }
     create = async (req, res) => {
 
