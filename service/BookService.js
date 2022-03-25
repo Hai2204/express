@@ -8,7 +8,6 @@ export default class BookService {
             const bookDao = await getAllData()
             success(req, res, bookDao)
         } catch (err) {
-            console.log(err);
             error(req, res, "Lấy danh sách thất bại!")
         }
     }
@@ -65,7 +64,6 @@ export default class BookService {
                 error(req, res, "Lỗi khi tạo mới!", 404)
             }
         } catch (err) {
-            console.log(err);
             error(req, res, "Có lỗi xảy ra khi tạo sách")
         }
     }
