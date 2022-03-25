@@ -1,13 +1,14 @@
 import { error, success, successMessage } from "../common/response.js"
+import { getAllData, getByMa } from "../dao/book.js"
 import Book from "../modal/book.js"
 
 export default class BookService {
-
     getAll = async (req, res) => {
         try {
-            const books = await Book.find()
-            success(req, res, books)
-        } catch (error) {
+            const bookDao = await getAllData()
+            success(req, res, bookDao)
+        } catch (err) {
+            console.log(err);
             error(req, res, "Lấy danh sách thất bại!")
         }
     }
@@ -15,7 +16,7 @@ export default class BookService {
         try {
             const { ma, name } = req.body
             if (!name && !ma) {
-                res.status(400).json({ status: false, message: "Vui lòng nhập đầy đủ thông tin!" })
+                error(req, res, "Vui lòng nhập đầy đủ thông tin!", 400)
             }
             // c1
             //const book = await book.create({ name: name, age: age})
@@ -36,7 +37,19 @@ export default class BookService {
                 error(req, res, 'Book not found', 404)
             }
         } catch (err) {
-            error(req, res, "Có lỗi xảy tạo sách")
+            error(req, res, "Không tìm thấy sách bạn cần!!")
+        }
+    }
+    findByMa = async (req, res) => {
+        try {
+            const book = await getByMa(req.params.ma)
+            if (!!book) {
+                success(req, res, book)
+            } else {
+                error(req, res, 'Book not found', 404)
+            }
+        } catch (err) {
+            error(req, res, "Không tìm thấy sách bạn cần!!")
         }
     }
 
@@ -59,7 +72,7 @@ export default class BookService {
     delete = async (req, res) => {
         const { id } = req.params
         try {
-              // const book = await Book.findByIdAndRemove(id)
+            // const book = await Book.findByIdAndRemove(id)
             const book = await Book.findByIdAndRemove(id)
             successMessage(req, res)
         } catch (err) {

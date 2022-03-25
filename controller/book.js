@@ -13,6 +13,9 @@ const createBook = async (req, res) => {
 const findBookById = async (req, res) => {
     return books.findById(req, res)
 }
+const findBookByMa = async (req, res) => {
+    return books.findByMa(req, res)
+}
 
 const updateBook = async (req, res) => {
     return books.update(req, res)
@@ -26,5 +29,6 @@ export {
     createBook,
     updateBook,
     deleteBook,
+    findBookByMa,
     findBookById
 }
