@@ -10,7 +10,6 @@ export default class BookService {
             const bookDao = await getAllData(offset, pageSize, search , sort)
             success(req, res, bookDao)
         } catch (err) {
-            console.log(err);
             error(req, res, "Lấy danh sách thất bại!")
         }
     }
