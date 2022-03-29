@@ -1,13 +1,16 @@
 import { error, success, successMessage } from "../common/response.js"
 import { getAllData, getByMa } from "../dao/book.js"
 import Book from "../modal/book.js"
+import User from "../modal/user.js"
 
 export default class BookService {
     getAll = async (req, res) => {
+        const { offset, pageSize , search , sort} = req.query;
         try {
-            const bookDao = await getAllData()
+            const bookDao = await getAllData(offset, pageSize, search , sort)
             success(req, res, bookDao)
         } catch (err) {
+            console.log(err);
             error(req, res, "Lấy danh sách thất bại!")
         }
     }
@@ -20,11 +23,16 @@ export default class BookService {
             // c1
             //const book = await book.create({ name: name, age: age})
             // c2
-            const book = new Book(req.body)
-            await book.save();
-            success(req, res, book)
+            const user = await User.findById(req.body.author)
+            if (!!user) {
+                const book = new Book({...req.body, author: user})
+                await book.save();
+                success(req, res, book)   
+            }else{
+                throw new Error('User khoogn tồn tại');
+            }
         } catch (err) {
-            error(req, res, "Có lỗi xảy tạo sách")
+            error(req, res, err.message)
         }
     }
     findById = async (req, res) => {

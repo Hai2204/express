@@ -10,17 +10,16 @@ const schema = new mongoo.Schema({
     // },
     ma: {
         type: String,
-        required: true,
-        max: 20,
-        min: 3,
+        required: [true, "Vui lòng điền"],
+        maxLength: [20, "Vượt quá độ dài tối đa!"],
+        minlength: [3, "mã quá ngắn."],
         unique: true,
+        lowercase: true
     },
     name: {
         type: String,
     },
-    author: {
-        type: String,
-    },
+    author: { type: mongoo.Schema.ObjectId, ref: 'User', required: true },
     title: {
         type: String,
     },
@@ -32,6 +31,6 @@ const schema = new mongoo.Schema({
     },
 
 }, { timestamps: true })
-const Book = mongoo.model('books', schema)
+const Book = mongoo.model('Book', schema)
 
 export default Book

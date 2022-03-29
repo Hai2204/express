@@ -43,7 +43,7 @@ mongoo.connection.on("connected", () => {
 })
 
 mongoo.connection.on("error" , (err) => {
-    console.log('error nef',err);
+    console.log('MongoDB connection error: ',err);
 })
 
 
