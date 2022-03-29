@@ -6,6 +6,7 @@ import User from "../modal/user.js"
 export default class BookService {
     getAll = async (req, res) => {
         const { offset, pageSize , search , sort} = req.query;
+        const pagination = { offset: offset, pageSize: pageSize , total: 0}
         try {
             const bookDao = await getAllData(offset, pageSize, search , sort)
             success(req, res, bookDao)

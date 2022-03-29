@@ -7,6 +7,8 @@ export const getAllData = async (offset, pageSize, search, sort) => {
         const value = arrSearch[1]
         query = Book.find({
             $or: [
+                // "name" : { $regex: /value/, $options: 'i' } 
+                // { 'name' : { '$regex' : value, '$options' : 'i' } }
                 {'name': new RegExp(value, 'i')},
                 {'title': new RegExp(value, 'i')}
             ] 
