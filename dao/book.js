@@ -22,9 +22,11 @@ export const getAllData = async (offset, pageSize, search, sort) => {
     }
     if (!!sort) {// sort
         const arrSort = sort.split('_')
-        // const name = arr[0]
+        const name = arrSort[0]
         const value = arrSort[1]
-        query.sort({ name: value })
+        const obj = new Object()
+        obj[name] = value
+        query.sort(obj)
     }
 
     return query.exec()
